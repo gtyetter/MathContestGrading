@@ -118,11 +118,25 @@ namespace MathContestGrading
 
         }
 
+        protected string JuniorKey;     //Junior Key String
+        protected string SeniorKey;     //Senior Key String
         protected List<contestant> Junior = new List<contestant>(); //List for junior data
         protected List<contestant> Senior = new List<contestant>(); //List for senior data
 
         public static void parse()  //Goes through the files and puts the corresponding data in the list
         {
+            List<string> JunFile;
+            List<string> SenFile;
+
+            //Input the file by line and save into a list one for junior and senior
+            for(int i=0;i<JunFile.Count();i++)
+            {
+                killWhiteSpace(JunFile[i]);
+            }
+            for(int i=0;i<SenFile.Count();i++)
+            {
+                killWhiteSpace(SenFile[i]);
+            }
 
         }
 
@@ -134,6 +148,29 @@ namespace MathContestGrading
         public static void grade()  //Takes the scores from the students and calculates the grade
         {
 
+        }
+
+        public static void killWhiteSpace(string line)
+        {
+            List<string> theLine;
+            string theWord="";
+            int counter = 0;
+            for(int i=0;i<line.Length();i++)
+            {
+                if (line[i] != ' ' && line[i] != '\t')
+                {
+                    theWord += line[i].ToString();
+                    counter++;
+                }
+                else if ((line[i] == ' ' || line[i] == '\t') && counter > 0)
+                {
+                    theLine.Add(theWord);
+                    theWord = "";
+                    counter = 0;
+                }
+            }
+            theLine.Add(theWord);
+            validate();
         }
 
         protected void Page_Load(object sender, EventArgs e)
