@@ -123,51 +123,53 @@ namespace MathContestGrading
 
         }
 
-        protected string JuniorKey;     //Junior Key String
-        protected string SeniorKey;     //Senior Key String
-        protected string JuniorTie;     //Junior Tie String
-        protected string SeniorTie;     //Senior Tie String
+        string JuniorKey;     //Junior Key String
+        string SeniorKey;     //Senior Key String
+        string JuniorTie;     //Junior Tie String
+        string SeniorTie;     //Senior Tie String
         bool JKFault = false;           //Junior Key Fault
         bool SKFault = false;           //Senior Key Fault
         bool JTFault = false;           //Junior Tie Fault
         bool STFault = false;           //Senior Tie Fault
-        protected List<contestant> Junior = new List<contestant>(); //List for junior data
-        protected List<contestant> Senior = new List<contestant>(); //List for senior data
-        protected List<schools> School = new List<schools>(); //List for school data
+        List<contestant> Junior = new List<contestant>(); //List for junior data
+        List<contestant> Senior = new List<contestant>(); //List for senior data
+        List<schools> School = new List<schools>(); //List for school data
 
-        public static void parse()  //Goes through the files and puts the corresponding data in the list
+        public void parse()  //Goes through the files and puts the corresponding data in the list
         {
             List<string> JunFile = new List<string>();
             List<string> SenFile = new List<string>();
 
             //Input the file by line and save into a list one for junior and senior
 
+            //May throw errors until this section is filled
+
             validateKey('J', killWhiteSpace(JunFile[0]));
             validateTie('J', killWhiteSpace(Junfile[1]));
             for(int i=2;i<JunFile.Count();i++)
             {
-                killWhiteSpace(JunFile[i]);
+                validate(killWhiteSpace(JunFile[i]));
             }
             validateKey('S', killWhiteSpace(SenFile[0]));
             validateTie('S', killWhiteSpace(SenFile[1]));
             for(int i=2;i<SenFile.Count();i++)
             {
-                killWhiteSpace(SenFile[i]);
+                validate(killWhiteSpace(SenFile[i]));
             }
 
         }
 
-        public static void validate()   //Called from parse, ensures data integrity
+        public void validate(List<string> theLine)   //Called from parse, ensures data integrity
         {
 
         }
 
-        public static void grade()  //Takes the scores from the students and calculates the grade
+        public void grade()  //Takes the scores from the students and calculates the grade
         {
 
         }
 
-        public static List<string> killWhiteSpace(string line)
+        public List<string> killWhiteSpace(string line)
         {
             List<string> theLine = new List<string>();
             string theWord="";
@@ -190,11 +192,11 @@ namespace MathContestGrading
             return theLine;
         }
 
-        public static void validateKey(char level, List<string> theLine)
+        public void validateKey(char level, List<string> theLine)
         {
             int item = theLine.Count()-1;
             bool issue = false;
-            if (theLine[item].Length()!=40)
+            if (theLine[item].Length!=40)
             {
                 issue = true;
             }
@@ -208,7 +210,7 @@ namespace MathContestGrading
                     }
                 }
             }
-            if(level='J')
+            if(level=='J')
             {
                 JuniorKey = theLine[item];
                 JKFault = issue;
@@ -220,11 +222,11 @@ namespace MathContestGrading
             }
         }
 
-        public static void validateTie(char level, List<string> theLine)
+        public void validateTie(char level, List<string> theLine)
         {
             int item = theLine.Count() - 1;
             bool issue = false;
-            if (theLine[item].Length() != 40)
+            if (theLine[item].Length != 40)
             {
                 issue = true;
             }
@@ -238,7 +240,7 @@ namespace MathContestGrading
                     }
                 }
             }
-            if (level = 'J')
+            if (level == 'J')
             {
                 JuniorTie = theLine[item];
                 JTFault = issue;
