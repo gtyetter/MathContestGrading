@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 
 namespace MathContestGrading
 {
@@ -137,16 +138,17 @@ namespace MathContestGrading
         bool SKFault = false;           //Senior Key Fault
         bool JTFault = false;           //Junior Tie Fault
         bool STFault = false;           //Senior Tie Fault
-        List<contestant> Junior = new List<contestant>(); //List for junior data
-        List<contestant> Senior = new List<contestant>(); //List for senior data
-        List<schools> School = new List<schools>(); //List for school data
+        List<contestant> Junior = new List<contestant>();   //List for junior data
+        List<contestant> Senior = new List<contestant>();   //List for senior data
+        List<schools> School = new List<schools>();         //List for school data
 
         public void parse()  //Goes through the files and puts the corresponding data in the list
-        {
-            List<string> JunFile = new List<string>();
-            List<string> SenFile = new List<string>();
+        {   
 
             //Input the file by line and save into a list one for junior and senior
+            List<string> SenFile = File.ReadAllLines(SeniorFileUpload.FileName).ToList();
+            List<string> JunFile = File.ReadAllLines(JuniorFileUpload.FileName).ToList();
+            List<string> SchoolFile = File.ReadAllLines(SchoolFileUpload.FileName).ToList(); 
 
             //May throw errors until this section is filled
 
