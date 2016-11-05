@@ -143,7 +143,7 @@ namespace MathContestGrading
             //Input the file by line and save into a list one for junior and senior
 
             validateKey('J', killWhiteSpace(JunFile[0]));
-            validateTie('J', killWhiteSpace(Junfile[1]));
+            validateTie('J', killWhiteSpace(JunFile[1]));
             for(int i=2;i<JunFile.Count();i++)
             {
                 killWhiteSpace(JunFile[i]);
@@ -194,7 +194,7 @@ namespace MathContestGrading
         {
             int item = theLine.Count()-1;
             bool issue = false;
-            if (theLine[item].Length()!=40)
+            if (theLine[item].Length!=40)
             {
                 issue = true;
             }
@@ -208,7 +208,7 @@ namespace MathContestGrading
                     }
                 }
             }
-            if(level='J')
+            if(level=='J')
             {
                 JuniorKey = theLine[item];
                 JKFault = issue;
@@ -224,7 +224,7 @@ namespace MathContestGrading
         {
             int item = theLine.Count() - 1;
             bool issue = false;
-            if (theLine[item].Length() != 40)
+            if (theLine[item].Length != 40)
             {
                 issue = true;
             }
@@ -238,7 +238,7 @@ namespace MathContestGrading
                     }
                 }
             }
-            if (level = 'J')
+            if (level == 'J')
             {
                 JuniorTie = theLine[item];
                 JTFault = issue;

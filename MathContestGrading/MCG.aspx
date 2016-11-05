@@ -1,7 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MCG.aspx.cs" Inherits="MathContestGrading.MCG" %>
 
 <!DOCTYPE html>
+<style>
+body {
+    background-color: yellow;
+}
 
+</style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Math Contest Grading</title>
