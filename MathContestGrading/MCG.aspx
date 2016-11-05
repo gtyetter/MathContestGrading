@@ -42,8 +42,8 @@ ul {
         <div class="Input">
             <ul>
                 <li>
-                    <asp:FileUpload ID="SeniorFileUpload" runat="server" BackColor="White" />
-                    <asp:Button ID="SaveSenoirFileBtn" runat="server" Text="Save" OnClick="SaveSenoirFileBtn_Click" BackColor="Black" BorderColor="White" ForeColor="White" />
+                    <asp:FileUpload ID="SeniorFileUpload" runat="server" />
+                    <asp:Button ID="SaveSeniorFileBtn" runat="server" Text="Save" OnClick="SaveSeniorFileBtn_Click" />
                 </li>
 
                 <li>

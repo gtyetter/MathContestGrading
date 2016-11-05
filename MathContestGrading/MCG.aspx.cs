@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 
 namespace MathContestGrading
 {
@@ -19,6 +20,12 @@ namespace MathContestGrading
             string SchoolCode;  //Which school they come from
             string SchoolName;  //Name of the school they came from
             string Answers; //The raw answers from the student
+
+            bool NameFlaw = false;
+            bool ClassFlaw = false;
+            bool LevelFlaw = false;
+            bool SchoolCodeFlaw = false;
+            bool AnswersFlaw = false;
 
             int Score;
             #endregion FunctionDefs
@@ -123,51 +130,101 @@ namespace MathContestGrading
 
         }
 
-        protected string JuniorKey;     //Junior Key String
-        protected string SeniorKey;     //Senior Key String
-        protected string JuniorTie;     //Junior Tie String
-        protected string SeniorTie;     //Senior Tie String
+        string JuniorKey;     //Junior Key String
+        string SeniorKey;     //Senior Key String
+        string JuniorTie;     //Junior Tie String
+        string SeniorTie;     //Senior Tie String
         bool JKFault = false;           //Junior Key Fault
         bool SKFault = false;           //Senior Key Fault
         bool JTFault = false;           //Junior Tie Fault
         bool STFault = false;           //Senior Tie Fault
-        protected List<contestant> Junior = new List<contestant>(); //List for junior data
-        protected List<contestant> Senior = new List<contestant>(); //List for senior data
-        protected List<schools> School = new List<schools>(); //List for school data
+        List<contestant> Junior = new List<contestant>();   //List for junior data
+        List<contestant> Senior = new List<contestant>();   //List for senior data
+        List<schools> School = new List<schools>();         //List for school data
 
-        public static void parse()  //Goes through the files and puts the corresponding data in the list
-        {
-            List<string> JunFile = new List<string>();
-            List<string> SenFile = new List<string>();
+        public void parse()  //Goes through the files and puts the corresponding data in the list
+        {   
 
             //Input the file by line and save into a list one for junior and senior
+            List<string> SenFile = File.ReadAllLines(SeniorFileUpload.FileName).ToList();
+            List<string> JunFile = File.ReadAllLines(JuniorFileUpload.FileName).ToList();
+            List<string> SchoolFile = File.ReadAllLines(SchoolFileUpload.FileName).ToList(); 
+
+            //May throw errors until this section is filled
 
             validateKey('J', killWhiteSpace(JunFile[0]));
             validateTie('J', killWhiteSpace(JunFile[1]));
             for(int i=2;i<JunFile.Count();i++)
             {
-                killWhiteSpace(JunFile[i]);
+                validate(killWhiteSpace(JunFile[i]));
             }
             validateKey('S', killWhiteSpace(SenFile[0]));
             validateTie('S', killWhiteSpace(SenFile[1]));
             for(int i=2;i<SenFile.Count();i++)
             {
-                killWhiteSpace(SenFile[i]);
+                validate(killWhiteSpace(SenFile[i]));
             }
 
         }
 
-        public static void validate()   //Called from parse, ensures data integrity
+        public void validate(List<string> theLine)   //Called from parse, ensures data integrity
+        {
+            int i = 0;
+            string Name = "";
+            string CLCode = "";
+            string SCode = "";
+            string ans = "";
+
+            bool nameFlaw = false;
+            bool classFlaw = false;
+            bool levelFlaw = false;
+            bool schoolCodeFlaw = false;
+            bool answersFlaw = false;
+            
+            while(i>=theLine.Count() || theLine[i]!="41" || theLine[i]!="49" || theLine[i]!="51" || theLine[i]!="59" || theLine[i].Length!=6 || theLine[i].Length!=40)
+            {
+                Name = Name + " " + theLine[i];
+                i++;
+            }
+
+            if(i==0)
+            {
+                nameFlaw = true;
+            }
+
+            if (i >= theLine.Count() || theLine[i] != "41" || theLine[i] != "49" || theLine[i] != "51" || theLine[i] != "59")
+            {
+                classFlaw = true;
+                levelFlaw = true;
+            }
+            else
+            {
+                CLCode = theLine[i];
+            }
+
+            i++;
+
+            if (i >= theLine.Count() || theLine[i].Length != 6)
+            {
+                schoolCodeFlaw = true;
+            }
+            else
+            {
+                SCode = theLine[i];
+            }
+            i++;
+
+
+
+
+        }
+
+        public void grade()  //Takes the scores from the students and calculates the grade
         {
 
         }
 
-        public static void grade()  //Takes the scores from the students and calculates the grade
-        {
-
-        }
-
-        public static List<string> killWhiteSpace(string line)
+        public List<string> killWhiteSpace(string line)
         {
             List<string> theLine = new List<string>();
             string theWord="";
@@ -190,7 +247,7 @@ namespace MathContestGrading
             return theLine;
         }
 
-        public static void validateKey(char level, List<string> theLine)
+        public void validateKey(char level, List<string> theLine)
         {
             int item = theLine.Count()-1;
             bool issue = false;
@@ -220,7 +277,7 @@ namespace MathContestGrading
             }
         }
 
-        public static void validateTie(char level, List<string> theLine)
+        public void validateTie(char level, List<string> theLine)
         {
             int item = theLine.Count() - 1;
             bool issue = false;
@@ -255,19 +312,40 @@ namespace MathContestGrading
 
         }
 
-        protected void SaveSenoirFileBtn_Click(object sender, EventArgs e)
+        protected void SaveSeniorFileBtn_Click(object sender, EventArgs e)
         {
+            string FilePath = @"\Uploads\";
+            string AppPath = Request.PhysicalApplicationPath;
 
+            if (SeniorFileUpload.HasFile)
+            {
+                string SavePath = AppPath + FilePath + Server.HtmlEncode(SeniorFileUpload.FileName);
+                SeniorFileUpload.SaveAs(SavePath);
+            }
         }
 
         protected void SaveJuniorFileBtn_Click(object sender, EventArgs e)
         {
+            string FilePath = @"\Uploads\";
+            string AppPath = Request.PhysicalApplicationPath;
 
+            if (JuniorFileUpload.HasFile)
+            {
+                string SavePath = AppPath + FilePath + Server.HtmlEncode(JuniorFileUpload.FileName);
+                SeniorFileUpload.SaveAs(SavePath);
+            }
         }
 
         protected void SaveSchoolFileBtn_Click(object sender, EventArgs e)
         {
+            string FilePath = @"\Uploads\";
+            string AppPath = Request.PhysicalApplicationPath;
 
+            if (SchoolFileUpload.HasFile)
+            {
+                string SavePath = AppPath + FilePath + Server.HtmlEncode(SchoolFileUpload.FileName);
+                SeniorFileUpload.SaveAs(SavePath);
+            }
         }
     }
 }
