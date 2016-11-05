@@ -145,7 +145,7 @@ namespace MathContestGrading
             //May throw errors until this section is filled
 
             validateKey('J', killWhiteSpace(JunFile[0]));
-            validateTie('J', killWhiteSpace(Junfile[1]));
+            validateTie('J', killWhiteSpace(JunFile[1]));
             for(int i=2;i<JunFile.Count();i++)
             {
                 validate(killWhiteSpace(JunFile[i]));
