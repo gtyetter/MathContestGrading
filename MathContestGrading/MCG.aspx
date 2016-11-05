@@ -16,17 +16,18 @@
             <ul>
                 <li>
                     <asp:FileUpload ID="SeniorFileUpload" runat="server" />
-                    <asp:Button ID="SaveSeniorFileBtn" runat="server" Text="Save" OnClick="SaveSeniorFileBtn_Click" />
                 </li>
 
                 <li>
                     <asp:FileUpload ID="JuniorFileUpload" runat="server" />
-                    <asp:Button ID="SaveJuniorFileBtn" runat="server" Text="Save" OnClick="SaveJuniorFileBtn_Click" />
                 </li>
 
                 <li>
                     <asp:FileUpload ID="SchoolFileUpload" runat="server" />
-                    <asp:Button ID="SaveSchoolFileBtn" runat="server" Text="Save" OnClick="SaveSchoolFileBtn_Click" />
+                </li>
+
+                <li>
+                    <asp:Button ID="SaveSchoolFileBtn" runat="server" Text="Save" OnClick="SaveFileBtn_Click" Width="217px" />
                 </li>
             </ul>
         </div>
