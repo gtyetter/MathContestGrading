@@ -31,13 +31,13 @@ namespace MathContestGrading {
         protected global::System.Web.UI.WebControls.FileUpload SeniorFileUpload;
         
         /// <summary>
-        /// SaveSenoirFileBtn control.
+        /// SaveSeniorFileBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SaveSenoirFileBtn;
+        protected global::System.Web.UI.WebControls.Button SaveSeniorFileBtn;
         
         /// <summary>
         /// JuniorFileUpload control.

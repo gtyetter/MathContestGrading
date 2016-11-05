@@ -184,19 +184,40 @@ namespace MathContestGrading
 
         }
 
-        protected void SaveSenoirFileBtn_Click(object sender, EventArgs e)
+        protected void SaveSeniorFileBtn_Click(object sender, EventArgs e)
         {
+            string FilePath = @"\Uploads\";
+            string AppPath = Request.PhysicalApplicationPath;
 
+            if (SeniorFileUpload.HasFile)
+            {
+                string SavePath = AppPath + FilePath + Server.HtmlEncode(SeniorFileUpload.FileName);
+                SeniorFileUpload.SaveAs(SavePath);
+            }
         }
 
         protected void SaveJuniorFileBtn_Click(object sender, EventArgs e)
         {
+            string FilePath = @"\Uploads\";
+            string AppPath = Request.PhysicalApplicationPath;
 
+            if (JuniorFileUpload.HasFile)
+            {
+                string SavePath = AppPath + FilePath + Server.HtmlEncode(JuniorFileUpload.FileName);
+                SeniorFileUpload.SaveAs(SavePath);
+            }
         }
 
         protected void SaveSchoolFileBtn_Click(object sender, EventArgs e)
         {
+            string FilePath = @"\Uploads\";
+            string AppPath = Request.PhysicalApplicationPath;
 
+            if (SchoolFileUpload.HasFile)
+            {
+                string SavePath = AppPath + FilePath + Server.HtmlEncode(SchoolFileUpload.FileName);
+                SeniorFileUpload.SaveAs(SavePath);
+            }
         }
     }
 }
