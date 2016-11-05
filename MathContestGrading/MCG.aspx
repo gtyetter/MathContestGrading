@@ -10,12 +10,23 @@
 <body>
     <form id="form1" runat="server">
     <div class="Input">
-        <asp:FileUpload ID="FileUpload1" runat="server" />
-        <asp:Button ID="SaveButton" runat="server" Text="Save" OnClick="SaveButton_Click"/>
+        <ul>
+            <li>
+                <asp:FileUpload ID="SeniorFileUpload" runat="server" />
+                <asp:Button ID="SaveSenoirFileBtn" runat="server" Text="Save" OnClick="SaveSenoirFileBtn_Click"/>
+            </li>
+            
+            <li>
+                <asp:FileUpload ID="JuniorFileUpload" runat="server" />
+                <asp:Button ID="SaveJuniorFileBtn" runat="server" Text="Save" OnClick="SaveJuniorFileBtn_Click" />
+            </li>
+            
+            <li>
+                <asp:FileUpload ID="SchoolFileUpload"  runat="server" />
+                <asp:Button ID="SaveSchoolFileBtn" runat="server" Text="Save" OnClick ="SaveSchoolFileBtn_Click" />
+            </li>
+        </ul>
     </div>
-    <div class="validate"></div>
-    <div class="grade"></div>
-    <div class="output"></div>
     </form>
 </body>
 </html>

@@ -178,7 +178,7 @@ namespace MathContestGrading
 
         }
 
-        protected void SaveButton_Click(object sender, EventArgs e)
+        protected void SaveSenoirFileBtn_Click(object sender, EventArgs e)
         {
 
         }
