@@ -131,8 +131,8 @@ namespace MathContestGrading
 
         public static void parse()  //Goes through the files and puts the corresponding data in the list
         {
-            List<string> JunFile;
-            List<string> SenFile;
+            List<string> JunFile = new List<string>();
+            List<string> SenFile = new List<string>();
 
             //Input the file by line and save into a list one for junior and senior
             for(int i=0;i<JunFile.Count();i++)
@@ -158,10 +158,10 @@ namespace MathContestGrading
 
         public static void killWhiteSpace(string line)
         {
-            List<string> theLine;
+            List<string> theLine = new List<string>();
             string theWord="";
             int counter = 0;
-            for(int i=0;i<line.Length();i++)
+            for(int i=0;i<line.Length;i++)
             {
                 if (line[i] != ' ' && line[i] != '\t')
                 {
