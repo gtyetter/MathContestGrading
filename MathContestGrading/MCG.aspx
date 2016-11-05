@@ -16,7 +16,7 @@
             <ul>
                 <li>
                     <asp:FileUpload ID="SeniorFileUpload" runat="server" />
-                    <asp:Button ID="SaveSenoirFileBtn" runat="server" Text="Save" OnClick="SaveSenoirFileBtn_Click" />
+                    <asp:Button ID="SaveSeniorFileBtn" runat="server" Text="Save" OnClick="SaveSeniorFileBtn_Click" />
                 </li>
 
                 <li>
