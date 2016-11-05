@@ -20,6 +20,12 @@ namespace MathContestGrading
             string SchoolName;  //Name of the school they came from
             string Answers; //The raw answers from the student
 
+            bool NameFlaw = false;
+            bool ClassFlaw = false;
+            bool LevelFlaw = false;
+            bool SchoolCodeFlaw = false;
+            bool AnswersFlaw = false;
+
             int Score;
             #endregion FunctionDefs
 
@@ -161,6 +167,53 @@ namespace MathContestGrading
 
         public void validate(List<string> theLine)   //Called from parse, ensures data integrity
         {
+            int i = 0;
+            string Name = "";
+            string CLCode = "";
+            string SCode = "";
+            string ans = "";
+
+            bool nameFlaw = false;
+            bool classFlaw = false;
+            bool levelFlaw = false;
+            bool schoolCodeFlaw = false;
+            bool answersFlaw = false;
+            
+            while(i>=theLine.Count() || theLine[i]!="41" || theLine[i]!="49" || theLine[i]!="51" || theLine[i]!="59" || theLine[i].Length!=6 || theLine[i].Length!=40)
+            {
+                Name = Name + " " + theLine[i];
+                i++;
+            }
+
+            if(i==0)
+            {
+                nameFlaw = true;
+            }
+
+            if (i >= theLine.Count() || theLine[i] != "41" || theLine[i] != "49" || theLine[i] != "51" || theLine[i] != "59")
+            {
+                classFlaw = true;
+                levelFlaw = true;
+            }
+            else
+            {
+                CLCode = theLine[i];
+            }
+
+            i++;
+
+            if (i >= theLine.Count() || theLine[i].Length != 6)
+            {
+                schoolCodeFlaw = true;
+            }
+            else
+            {
+                SCode = theLine[i];
+            }
+            i++;
+
+
+
 
         }
 
