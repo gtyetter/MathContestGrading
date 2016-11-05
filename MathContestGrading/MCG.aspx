@@ -8,25 +8,32 @@
 </head>
 
 <body>
-    <form id="form1" runat="server">
-    <div class="Input">
-        <ul>
-            <li>
-                <asp:FileUpload ID="SeniorFileUpload" runat="server" />
-                <asp:Button ID="SaveSenoirFileBtn" runat="server" Text="Save" OnClick="SaveSenoirFileBtn_Click"/>
-            </li>
-            
-            <li>
-                <asp:FileUpload ID="JuniorFileUpload" runat="server" />
-                <asp:Button ID="SaveJuniorFileBtn" runat="server" Text="Save" OnClick="SaveJuniorFileBtn_Click" />
-            </li>
-            
-            <li>
-                <asp:FileUpload ID="SchoolFileUpload"  runat="server" />
-                <asp:Button ID="SaveSchoolFileBtn" runat="server" Text="Save" OnClick ="SaveSchoolFileBtn_Click" />
-            </li>
-        </ul>
+    <div class="logo">
+
     </div>
+    <form id="form1" runat="server">
+        <div class="Input">
+            <ul>
+                <li>
+                    <asp:FileUpload ID="SeniorFileUpload" runat="server" />
+                    <asp:Button ID="SaveSenoirFileBtn" runat="server" Text="Save" OnClick="SaveSenoirFileBtn_Click" />
+                </li>
+
+                <li>
+                    <asp:FileUpload ID="JuniorFileUpload" runat="server" />
+                    <asp:Button ID="SaveJuniorFileBtn" runat="server" Text="Save" OnClick="SaveJuniorFileBtn_Click" />
+                </li>
+
+                <li>
+                    <asp:FileUpload ID="SchoolFileUpload" runat="server" />
+                    <asp:Button ID="SaveSchoolFileBtn" runat="server" Text="Save" OnClick="SaveSchoolFileBtn_Click" />
+                </li>
+            </ul>
+        </div>
+
+        <div class="Download">
+
+        </div>
     </form>
 </body>
 </html>

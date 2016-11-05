@@ -118,10 +118,16 @@ namespace MathContestGrading
 
         }
 
+        protected class schools
+        {
+
+        }
+
         protected string JuniorKey;     //Junior Key String
         protected string SeniorKey;     //Senior Key String
         protected List<contestant> Junior = new List<contestant>(); //List for junior data
         protected List<contestant> Senior = new List<contestant>(); //List for senior data
+        protected List<schools> School = new List<schools>(); //List for school data
 
         public static void parse()  //Goes through the files and puts the corresponding data in the list
         {
@@ -179,6 +185,16 @@ namespace MathContestGrading
         }
 
         protected void SaveSenoirFileBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SaveJuniorFileBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SaveSchoolFileBtn_Click(object sender, EventArgs e)
         {
 
         }
