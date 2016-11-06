@@ -2,26 +2,29 @@
 
 <!DOCTYPE html>
 <style>
-body {
-    background-color: #5D6D7E;
-    display: table-cell;
-    vertical-align: middle;
-}
-html {
-    display: table;
-    margin: auto;
-}
-ul {
-    list-style: none;
 
-}
-.Input {
-    text-align: center;
-}
-.Instructions {
-    text-align: center;
-}
+    html {
+        display: table;
+        margin: auto;
+    }
 
+    body {
+        background-color: #5D6D7E;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .Input {
+        text-align: center;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .Instructions {
+        text-align: center;
+    }
 
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,14 +33,17 @@ ul {
 </head>
 
 <body>
+    
     <div class="logo">
         <img src="Image/Banner.png" style="height: 104px; width: 510px"/>
     </div>
+
     <div class="Instructions">
         <p>
             Select file paths and save to continue:
         </p>
     </div>
+    
     <form id="form1" runat="server">
         <div class="Input">
             <ul>
@@ -62,6 +68,7 @@ ul {
         <div class="Download">
 
         </div>
+
     </form>
 </body>
 </html>

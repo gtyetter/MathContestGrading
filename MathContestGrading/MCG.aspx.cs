@@ -125,9 +125,36 @@ namespace MathContestGrading
 
         }
 
-        protected class schools
+        protected class school
         {
+            string Number;
+            string Name;
+            List<contestant> SeniorContestant;
+            List<contestant> JuniorContestant;
 
+            //Constructor
+            school(string number, string name, List<contestant> s, List<contestant> j){
+                Number = number;
+                Name = name;
+                SeniorContestant = s;
+                JuniorContestant = j;
+            }
+
+            //Destructor
+            ~school() { }
+
+            //Getters
+            string GetNumber() { return Number; }
+            string GetName() { return Name; }
+            List<contestant> GetSeniorList() { return SeniorContestant; }
+            List<contestant> GetJuniorList() { return JuniorContestant; }
+
+            //Setters
+            void UpdateNumber(string number) { Number = number; }
+            void UpdateName(string name) { Name = name; }
+            void UpdateSeniorList(List<contestant> s) { SeniorContestant = s; }
+            void UpdateJuniorList(List<contestant> j) { JuniorContestant = j; }
+           
         }
 
         string JuniorKey;     //Junior Key String
@@ -140,7 +167,7 @@ namespace MathContestGrading
         bool STFault = false;           //Senior Tie Fault
         List<contestant> Junior = new List<contestant>();   //List for junior data
         List<contestant> Senior = new List<contestant>();   //List for senior data
-        List<schools> School = new List<schools>();         //List for school data
+        List<school> School = new List<school>();         //List for school data
 
         public void parse()  //Goes through the files and puts the corresponding data in the list
         {   
