@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using System.Text;
 
 namespace MathContestGrading
 {
@@ -218,30 +219,32 @@ namespace MathContestGrading
         List<string> JunErrorList = new List<string>();      //List of all Juniors and saying ok or error.
         List<string> SenErrorList = new List<string>();      //List of all Seniors and saying ok or error.
 
-        string SeniorFile;
+        string SeniorFile; 
         string JuniorFile;
         string SchoolListFile;
 
         public void parse()  //Goes through the files and puts the corresponding data in the list
-        {   
-
+        {
+            ShowPopUpMsg("Entered Parse");
             //Input the file by line and save into a list one for junior and senior
-            List<string> SenFile = File.ReadAllLines(@"\Uploads\" + SeniorFile).ToList();
-            List<string> JunFile = File.ReadAllLines(@"\Uploads\" + JuniorFile).ToList();
-            List<string> SchoolFile = File.ReadAllLines(@"\Uploads\" + SchoolListFile).ToList(); 
-
+            List<string> SenFile = File.ReadAllLines(SeniorFile).ToList();
+            List<string> JunFile = File.ReadAllLines(JuniorFile).ToList();
+            List<string> SchoolFile = File.ReadAllLines(SchoolListFile).ToList();
+            ShowPopUpMsg("Read Shit");
             //Does the key and tiebreakers then populates the student files
             validateKey('J', killWhiteSpace(JunFile[0]));
             validateTie('J', killWhiteSpace(JunFile[1]));
             for(int i=2;i<JunFile.Count();i++)
             {
                 validate('J', killWhiteSpace(JunFile[i]));
+                ShowPopUpMsg("Read Junior");
             }
             validateKey('S', killWhiteSpace(SenFile[0]));
             validateTie('S', killWhiteSpace(SenFile[1]));
             for(int i=2;i<SenFile.Count();i++)
             {
                 validate('S', killWhiteSpace(SenFile[i]));
+                ShowPopUpMsg("Read Senior");
             }
             
             //Creates the error strings for juniors and seniors
@@ -302,8 +305,8 @@ namespace MathContestGrading
             bool levelFlaw = false;
             bool schoolCodeFlaw = false;
             bool answersFlaw = false;
-            
-            while(i<theLine.Count() || theLine[i]!="41" || theLine[i]!="49" || theLine[i]!="51" || theLine[i]!="59" || theLine[i].Length!=40)
+           
+            while(i<theLine.Count() && theLine[i]!="41" && theLine[i]!="49" && theLine[i]!="51" && theLine[i]!="59" && theLine[i].Length!=40)
             {
                 Name = Name + " " + theLine[i];
                 i++;
@@ -536,27 +539,28 @@ namespace MathContestGrading
             {
                 string SavePath = AppPath + FilePath + Server.HtmlEncode(SeniorFileUpload.FileName);
                 SeniorFileUpload.SaveAs(SavePath);
-                SeniorFile = SeniorFileUpload.FileName;
+                SeniorFile = AppPath + FilePath + SeniorFileUpload.FileName;
             }
 
             if (JuniorFileUpload.HasFile)
             {
                 string SavePath = AppPath + FilePath + Server.HtmlEncode(JuniorFileUpload.FileName);
                 JuniorFileUpload.SaveAs(SavePath);
-                JuniorFile = JuniorFileUpload.FileName;
+                JuniorFile = AppPath + FilePath + JuniorFileUpload.FileName;
             }
 
             if (SchoolFileUpload.HasFile)
             {
                 string SavePath = AppPath + FilePath + Server.HtmlEncode(SchoolFileUpload.FileName);
                 SchoolFileUpload.SaveAs(SavePath);
-                SchoolListFile = SchoolFileUpload.FileName;
+                SchoolListFile = AppPath + FilePath + SchoolFileUpload.FileName;
             }
 
             //Begin Doing Stuff
+            ShowPopUpMsg("Test\n"+SeniorFile);
             parse();
-            printErrBoxes();
-            grade();
+            //printErrBoxes();
+            //grade();
         }
 
         protected void DownloadFilesBtn_Click(object sender, EventArgs e)
@@ -571,6 +575,15 @@ namespace MathContestGrading
             response.TransmitFile(FilePath);
             response.Flush();
             response.End();
+        }
+
+        private void ShowPopUpMsg(string msg)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("alert('");
+            sb.Append(msg.Replace("\n", "\\n").Replace("\r", "").Replace("'", "\\'"));
+            sb.Append("');");
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "showalert", sb.ToString(), true);
         }
     }
 }
