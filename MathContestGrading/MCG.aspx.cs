@@ -218,13 +218,17 @@ namespace MathContestGrading
         List<string> JunErrorList = new List<string>();      //List of all Juniors and saying ok or error.
         List<string> SenErrorList = new List<string>();      //List of all Seniors and saying ok or error.
 
+        string SeniorFile;
+        string JuniorFile;
+        string SchoolListFile;
+
         public void parse()  //Goes through the files and puts the corresponding data in the list
         {   
 
             //Input the file by line and save into a list one for junior and senior
-            List<string> SenFile = File.ReadAllLines(SeniorFileUpload.FileName).ToList();
-            List<string> JunFile = File.ReadAllLines(JuniorFileUpload.FileName).ToList();
-            List<string> SchoolFile = File.ReadAllLines(SchoolFileUpload.FileName).ToList(); 
+            List<string> SenFile = File.ReadAllLines(@"\Uploads\" + SeniorFile).ToList();
+            List<string> JunFile = File.ReadAllLines(@"\Uploads\" + JuniorFile).ToList();
+            List<string> SchoolFile = File.ReadAllLines(@"\Uploads\" + SchoolListFile).ToList(); 
 
             //Does the key and tiebreakers then populates the student files
             validateKey('J', killWhiteSpace(JunFile[0]));
@@ -532,18 +536,21 @@ namespace MathContestGrading
             {
                 string SavePath = AppPath + FilePath + Server.HtmlEncode(SeniorFileUpload.FileName);
                 SeniorFileUpload.SaveAs(SavePath);
+                SeniorFile = SeniorFileUpload.FileName;
             }
 
             if (JuniorFileUpload.HasFile)
             {
                 string SavePath = AppPath + FilePath + Server.HtmlEncode(JuniorFileUpload.FileName);
-                SeniorFileUpload.SaveAs(SavePath);
+                JuniorFileUpload.SaveAs(SavePath);
+                JuniorFile = JuniorFileUpload.FileName;
             }
 
             if (SchoolFileUpload.HasFile)
             {
                 string SavePath = AppPath + FilePath + Server.HtmlEncode(SchoolFileUpload.FileName);
                 SchoolFileUpload.SaveAs(SavePath);
+                SchoolListFile = SchoolFileUpload.FileName;
             }
 
             //Begin Doing Stuff
