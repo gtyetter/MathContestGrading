@@ -557,7 +557,7 @@ namespace MathContestGrading
             }
 
             //Begin Doing Stuff
-            ShowPopUpMsg("Test\n"+SeniorFile);
+            //ShowPopUpMsg("Test\n"+SeniorFile);
             //for(int x=-1;x<5;x++)
             //{
             //    int y = 5 / x;
