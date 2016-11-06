@@ -9,9 +9,24 @@
     }
 
     body {
-        background-color: #5D6D7E;
+        background-color: white;
         display: table-cell;
         vertical-align: middle;
+    }
+
+    .Logo img{
+        width: 1em;
+    }
+
+    .Instructions {
+        text-align: center;
+    }
+
+    form{
+        background-color: #145314;
+        border-radius: 25px;
+        padding: 20px;
+        width: auto;
     }
 
     .Input {
@@ -22,8 +37,8 @@
         list-style: none;
     }
 
-    .Instructions {
-        text-align: center;
+    .DownLoad{
+
     }
 
 </style>
@@ -34,8 +49,8 @@
 
 <body>
     
-    <div class="logo">
-        <img src="Image/Banner.png" style="height: 104px; width: 510px"/>
+    <div class="Logo">
+        <img src="Image/Banner.png" />
     </div>
 
     <div class="Instructions">
@@ -60,13 +75,13 @@
                 </li>
 
                 <li>
-                    <asp:Button ID="SaveSchoolFileBtn" runat="server" Text="Save" OnClick="SaveFileBtn_Click" Width="217px" />
+                    <asp:Button ID="UploadFileBtn" runat="server" Text="Save" OnClick="SaveFileBtn_Click" />
                 </li>
             </ul>
         </div>
 
         <div class="Download">
-
+            <asp:Button ID="DownloadFilesBtn" runat="server" Text="Download" OnClick="DownloadFilesBtn_Click" />
         </div>
 
     </form>
