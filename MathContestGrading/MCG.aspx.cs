@@ -500,6 +500,24 @@ namespace MathContestGrading
             }
         }
 
+        public void printErrBoxes()
+        {
+            string JString = "";
+            string SString = "";
+            for(int i=0;i<JunErrorList.Count;i++)
+            {
+                JString = JString + JunErrorList[i] + "\n";
+            }
+            for(int i=0;i<SenErrorList.Count;i++)
+            {
+                SString = SString + SenErrorList[i] + "\n";
+            }
+            Console.Write(JString);
+            Console.ReadKey();
+            Console.Write(SString);
+            Console.ReadKey();
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -527,6 +545,11 @@ namespace MathContestGrading
                 string SavePath = AppPath + FilePath + Server.HtmlEncode(SchoolFileUpload.FileName);
                 SchoolFileUpload.SaveAs(SavePath);
             }
+
+            //Begin Doing Stuff
+            parse();
+            printErrBoxes();
+            grade();
         }
 
         protected void DownloadFilesBtn_Click(object sender, EventArgs e)
