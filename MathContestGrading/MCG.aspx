@@ -20,6 +20,7 @@ ul {
 }
 .Instructions {
     text-align: center;
+    color: white;
 }
 
 
@@ -42,7 +43,7 @@ ul {
         <div class="Input">
             <ul>
                 <li>
-                    <asp:FileUpload ID="SeniorFileUpload" runat="server" />
+                    <asp:FileUpload ID="SeniorFileUpload" runat="server" BackColor="White" />
                 </li>
 
                 <li>
