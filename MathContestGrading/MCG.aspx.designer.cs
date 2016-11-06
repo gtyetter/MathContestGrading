@@ -22,15 +22,6 @@ namespace MathContestGrading {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// SeniorFileUpload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload SeniorFileUpload;
-        
-        /// <summary>
         /// JuniorFileUpload control.
         /// </summary>
         /// <remarks>
@@ -38,6 +29,15 @@ namespace MathContestGrading {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload JuniorFileUpload;
+        
+        /// <summary>
+        /// SeniorFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload SeniorFileUpload;
         
         /// <summary>
         /// SchoolFileUpload control.
