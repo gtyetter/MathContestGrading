@@ -2,51 +2,50 @@
 
 <!DOCTYPE html>
 <style>
-    html {
-        display: table;
-        margin: auto;
-    }
+html {
+    display: table;
+    margin: auto;
+}
 
 body {
-        background-color: #145314;
+    background-color: #1D664B;
     display: table-cell;
     vertical-align: middle;
 }
 
-    .Container{
-        border-style: solid;
-        border-color: white;
-        border-width: thick;    
-        border-radius: 25px;
+.Container{
+    border-style: solid;
+    border-color: white;
+    border-width: thick;    
+    border-radius: 25px;
 }
 
-    .Logo img {
-}
+.Logo img {        
+        height: 180px;
+        width: 579px;
+    }
 
-    .Instructions {
+.Instructions {
     text-align: center;
 }
 
-    .Input {
-        background-color: #145314;
-        border-style: solid;
-        border-color: white;
-        border-width: thick;
-        border-radius: 25px;
-        padding: 20px;
-    }
-
-    .Input {
+.Input {
+    border-style: solid;
+    border-color: white;
+    border-width: thick;
+    border-radius: 25px;
+    padding: 20px;
     text-align: center;
     color: white;
 }
 
-    ul {
-        list-style: none;
-    }
+ul {
+    list-style: none;
+}
 
-    .DownLoad {
-    }
+.Download {
+    
+}
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -57,44 +56,43 @@ body {
     <div class="Container">
         <div class="Logo">
             <img src="Image/Banner.png" />
-    </div>
-
-    <div class="Instructions">
-        <p>
-            Select file paths and save to continue:
-        </p>
-    </div>
-
-    <form id="form1" runat="server">
-        <div class="Input">
-            <ul>
-                <li>
-                    <asp:FileUpload ID="SeniorFileUpload" runat="server" BackColor="White" />
-                </li>
-
-                <li>
-                    <asp:FileUpload ID="JuniorFileUpload" runat="server" />
-                </li>
-
-                <li>
-                    <asp:FileUpload ID="SchoolFileUpload" runat="server" />
-                </li>
-            </ul>
         </div>
+
+        <div class="Instructions">
+            <p>
+                Select file paths and save to continue:
+            </p>
+        </div>
+
+        <form id="form1" runat="server">
+            <div class="Input">
+                <ul>
+                    <li>
+                        <asp:FileUpload ID="SeniorFileUpload" runat="server" BackColor="White" />
+                    </li>
+
+                    <li>
+                        <asp:FileUpload ID="JuniorFileUpload" runat="server" />
+                    </li>
+
+                    <li>
+                        <asp:FileUpload ID="SchoolFileUpload" runat="server" />
+                    </li>
+                </ul>
+            </div>
 
             <div class="Upload">
                 <asp:Button ID="UploadFileBtn" runat="server" Text="Save" OnClick="SaveFileBtn_Click" />
             </div>
 
             <div class="Progress">
-
             </div>
 
-        <div class="Download">
+            <div class="Download">
                 <asp:Button ID="DownloadFilesBtn" runat="server" Text="Download" OnClick="DownloadFilesBtn_Click" />
             </div>
 
         </form>
-        </div>
+    </div>
 </body>
 </html>
