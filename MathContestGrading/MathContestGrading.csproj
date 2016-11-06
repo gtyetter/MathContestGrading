@@ -200,6 +200,19 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Downloads\AwardScript.txt" />
+    <Content Include="Downloads\Junior1.txt" />
+    <Content Include="Downloads\Junior2.txt" />
+    <Content Include="Downloads\Junior3.txt" />
+    <Content Include="Downloads\Junior4.txt" />
+    <Content Include="Downloads\Junior5.txt" />
+    <Content Include="Downloads\Junior6.txt" />
+    <Content Include="Downloads\Senior1.txt" />
+    <Content Include="Downloads\Senior2.txt" />
+    <Content Include="Downloads\Senior3.txt" />
+    <Content Include="Downloads\Senior4.txt" />
+    <Content Include="Downloads\Senior5.txt" />
+    <Content Include="Downloads\Senior6.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -209,7 +222,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Image\Banner.png" />
+    <Content Include="Image\Banner2.png" />
     <Content Include="MCG.aspx" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
@@ -414,7 +427,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Downloads\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <PropertyGroup>
