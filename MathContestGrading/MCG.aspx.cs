@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using System.Text;
 
 namespace MathContestGrading
 {
@@ -223,25 +224,27 @@ namespace MathContestGrading
         string SchoolListFile;
 
         public void parse()  //Goes through the files and puts the corresponding data in the list
-        {   
-
+        {
+            ShowPopUpMsg("Entered Parse");
             //Input the file by line and save into a list one for junior and senior
             List<string> SenFile = File.ReadAllLines(SeniorFile).ToList();
             List<string> JunFile = File.ReadAllLines(JuniorFile).ToList();
-            List<string> SchoolFile = File.ReadAllLines(SchoolListFile).ToList(); 
-
+            List<string> SchoolFile = File.ReadAllLines(SchoolListFile).ToList();
+            ShowPopUpMsg("Read Shit");
             //Does the key and tiebreakers then populates the student files
             validateKey('J', killWhiteSpace(JunFile[0]));
             validateTie('J', killWhiteSpace(JunFile[1]));
             for(int i=2;i<JunFile.Count();i++)
             {
                 validate('J', killWhiteSpace(JunFile[i]));
+                ShowPopUpMsg("Read Junior");
             }
             validateKey('S', killWhiteSpace(SenFile[0]));
             validateTie('S', killWhiteSpace(SenFile[1]));
             for(int i=2;i<SenFile.Count();i++)
             {
                 validate('S', killWhiteSpace(SenFile[i]));
+                ShowPopUpMsg("Read Senior");
             }
             
             //Creates the error strings for juniors and seniors
@@ -302,8 +305,8 @@ namespace MathContestGrading
             bool levelFlaw = false;
             bool schoolCodeFlaw = false;
             bool answersFlaw = false;
-            
-            while(i<theLine.Count() || theLine[i]!="41" || theLine[i]!="49" || theLine[i]!="51" || theLine[i]!="59" || theLine[i].Length!=40)
+           
+            while(i<theLine.Count() && theLine[i]!="41" && theLine[i]!="49" && theLine[i]!="51" && theLine[i]!="59" && theLine[i].Length!=40)
             {
                 Name = Name + " " + theLine[i];
                 i++;
@@ -554,9 +557,10 @@ namespace MathContestGrading
             }
 
             //Begin Doing Stuff
+            ShowPopUpMsg("Test\n"+SeniorFile);
             parse();
-            printErrBoxes();
-            grade();
+            //printErrBoxes();
+            //grade();
         }
 
         protected void DownloadFilesBtn_Click(object sender, EventArgs e)
@@ -571,6 +575,15 @@ namespace MathContestGrading
             response.TransmitFile(FilePath + "\\" + FileName);
             response.Flush();
             response.End();
+        }
+
+        private void ShowPopUpMsg(string msg)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("alert('");
+            sb.Append(msg.Replace("\n", "\\n").Replace("\r", "").Replace("'", "\\'"));
+            sb.Append("');");
+            ScriptManager.RegisterStartupScript(this.Page, this.GetType(), "showalert", sb.ToString(), true);
         }
     }
 }
