@@ -218,7 +218,7 @@ namespace MathContestGrading
         List<string> JunErrorList = new List<string>();      //List of all Juniors and saying ok or error.
         List<string> SenErrorList = new List<string>();      //List of all Seniors and saying ok or error.
 
-        string SeniorFile; 
+        string SeniorFile;     
         string JuniorFile;
         string SchoolListFile;
 
@@ -529,7 +529,7 @@ namespace MathContestGrading
 
         protected void SaveFileBtn_Click(object sender, EventArgs e)
         {
-            string FilePath = @"\Uploads\";
+            string FilePath = "\\Uploads";
             string AppPath = Request.PhysicalApplicationPath;
 
             if (SeniorFileUpload.HasFile)
@@ -561,14 +561,14 @@ namespace MathContestGrading
 
         protected void DownloadFilesBtn_Click(object sender, EventArgs e)
         {
-            String FileName = "FileName.txt";
-            String FilePath = "C:/...."; //Replace this
+            string FilePath = Request.PhysicalApplicationPath + @"\Downloads";
+            string FileName = "AwardScript.txt";
             System.Web.HttpResponse response = System.Web.HttpContext.Current.Response;
             response.ClearContent();
             response.Clear();
             response.ContentType = "text/plain";
             response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ";");
-            response.TransmitFile(FilePath);
+            response.TransmitFile(FilePath + "\\" + FileName);
             response.Flush();
             response.End();
         }
