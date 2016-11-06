@@ -20,9 +20,12 @@ body {
     border-radius: 25px;
 }
 
-.Logo img {        
-        height: 180px;
-        width: 579px;
+img.Logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;      
+    height: 180px;
+    width: 579px;
     }
 
 .Instructions {
@@ -54,9 +57,7 @@ ul {
 
 <body>
     <div class="Container">
-        <div class="Logo">
-            <img src="Image/Banner.png" />
-        </div>
+        <img class ="Logo" src="Image/Banner.png" />
 
         <div class="Instructions">
             <p>
@@ -68,14 +69,17 @@ ul {
             <div class="Input">
                 <ul>
                     <li>
-                        <asp:FileUpload ID="SeniorFileUpload" runat="server" BackColor="White" />
-                    </li>
-
-                    <li>
+                        Upload Junior Files Here:
                         <asp:FileUpload ID="JuniorFileUpload" runat="server" />
                     </li>
 
                     <li>
+                        Upload Senior Files Here:
+                        <asp:FileUpload ID="SeniorFileUpload" runat="server" BackColor="White" />
+                    </li>
+
+                    <li>
+                        Upload School Files Here:
                         <asp:FileUpload ID="SchoolFileUpload" runat="server" />
                     </li>
                 </ul>
