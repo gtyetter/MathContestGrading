@@ -97,17 +97,17 @@ ul li {
                 <ul>
                     <li>
                         Upload Junior Files Here:&nbsp; 
-                        <asp:FileUpload ID="JuniorFileUpload" runat="server" BackColor="White" />
+                        <asp:FileUpload ID="JuniorFileUpload" runat="server"/>
                     </li>
 
                     <li>
                         Upload Senior Files Here:&nbsp;
-                        <asp:FileUpload ID="SeniorFileUpload" runat="server" BackColor="White" />
+                        <asp:FileUpload ID="SeniorFileUpload" runat="server"/>
                     </li>
 
                     <li>
                         Upload School Files Here:
-                        <asp:FileUpload ID="SchoolFileUpload" runat="server" BackColor="White" />
+                        <asp:FileUpload ID="SchoolFileUpload" runat="server"/>
                     </li>
                 </ul>
             </div>
