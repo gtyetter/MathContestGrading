@@ -27,7 +27,7 @@ namespace MathContestGrading
             bool SchoolCodeFlaw = false;
             bool AnswersFlaw = false;
 
-            int Score;
+            double Score;
             #endregion FunctionDefs
 
             #region Constructor/Destructor
@@ -48,6 +48,12 @@ namespace MathContestGrading
             #endregion Constructor/Destructor
 
             #region Getters
+            //Returns Score
+            public double returnScore()
+            {
+                return Score;
+            }
+
             //Returns Name
             public string returnName()
             {
@@ -135,7 +141,7 @@ namespace MathContestGrading
             }
 
             //Update Score
-            public void updateScore(int score)
+            public void updateScore(double score)
             {
                 Score = score;
             }
@@ -376,7 +382,39 @@ namespace MathContestGrading
 
         public void grade()  //Takes the scores from the students and calculates the grade
         {
+            for(int i=0;i<Junior.Count;i++)
+            {
+                Junior[i].updateScore(compare(Junior[i].returnAnswers(), JuniorKey, JuniorTie));
+            }
 
+            for (int i = 0; i < Senior.Count; i++)
+            {
+                Senior[i].updateScore(compare(Senior[i].returnAnswers(), SeniorKey, SeniorTie));
+            }
+        }
+
+        public double compare(string answers, string key, string tie)
+        {
+            double grade = 0;
+            for (int i = 0; i < 40;i++)
+            {
+                if(answers[i]==key[i])
+                {
+                    if(tie[i]=='1')
+                    {
+                        grade = grade + 1.01;
+                    }
+                    else if(tie[i]=='2')
+                    {
+                        grade = grade + 1.0001;
+                    }
+                    else
+                    {
+                        grade = grade + 1.0;
+                    }
+                }
+            }
+            return grade;
         }
 
         public List<string> killWhiteSpace(string line)
