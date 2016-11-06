@@ -532,7 +532,7 @@ namespace MathContestGrading
 
         protected void SaveFileBtn_Click(object sender, EventArgs e)
         {
-            string FilePath = "\\Uploads";
+            string FilePath = "Uploads";
             string AppPath = Request.PhysicalApplicationPath;
 
             if (SeniorFileUpload.HasFile)
@@ -558,10 +558,10 @@ namespace MathContestGrading
 
             //Begin Doing Stuff
             ShowPopUpMsg("Test\n"+SeniorFile);
-            for(int x=-1;x<5;x++)
-            {
-                int y = 5 / x;
-            }
+            //for(int x=-1;x<5;x++)
+            //{
+            //    int y = 5 / x;
+            //}
             parse();
             //printErrBoxes();
             //grade();
