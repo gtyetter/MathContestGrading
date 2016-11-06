@@ -490,5 +490,10 @@ namespace MathContestGrading
                 SchoolFileUpload.SaveAs(SavePath);
             }
         }
+
+        protected void DownloadFilesBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
