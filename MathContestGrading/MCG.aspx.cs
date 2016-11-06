@@ -302,8 +302,8 @@ namespace MathContestGrading
             bool levelFlaw = false;
             bool schoolCodeFlaw = false;
             bool answersFlaw = false;
-            
-            while(i<theLine.Count() || theLine[i]!="41" || theLine[i]!="49" || theLine[i]!="51" || theLine[i]!="59" || theLine[i].Length!=40)
+           
+            while(i<theLine.Count() && theLine[i]!="41" && theLine[i]!="49" && theLine[i]!="51" && theLine[i]!="59" && theLine[i].Length!=40)
             {
                 Name = Name + " " + theLine[i];
                 i++;
