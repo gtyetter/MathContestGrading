@@ -49,12 +49,21 @@ namespace MathContestGrading {
         protected global::System.Web.UI.WebControls.FileUpload SchoolFileUpload;
         
         /// <summary>
-        /// SaveSchoolFileBtn control.
+        /// UploadFileBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SaveSchoolFileBtn;
+        protected global::System.Web.UI.WebControls.Button UploadFileBtn;
+        
+        /// <summary>
+        /// DownloadFilesBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button DownloadFilesBtn;
     }
 }

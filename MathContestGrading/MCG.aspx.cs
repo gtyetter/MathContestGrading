@@ -10,7 +10,7 @@ namespace MathContestGrading
 {
     public partial class MCG : System.Web.UI.Page
     {
-        protected class contestant
+        public class contestant
         {
             #region FunctionDefs
             string Name;
@@ -27,12 +27,12 @@ namespace MathContestGrading
             bool SchoolCodeFlaw = false;
             bool AnswersFlaw = false;
 
-            int Score;
+            double Score;
             #endregion FunctionDefs
 
             #region Constructor/Destructor
             //Constructor
-            contestant(string name, string classcode, string schoolcode, string answers)
+            public contestant(string name, string classcode, string schoolcode, string answers)
             {
                 Name=name;
                 ClassCode=classcode;
@@ -48,86 +48,159 @@ namespace MathContestGrading
             #endregion Constructor/Destructor
 
             #region Getters
+            //Returns Score
+            public double returnScore()
+            {
+                return Score;
+            }
+
             //Returns Name
-            string returnName()
+            public string returnName()
             {
                 return Name;
             }
 
             //Returns Class Code
-            string returnClassCode()
+            public string returnClassCode()
             {
                 return ClassCode;
             }
 
             //Returns School Code
-            string returnSchoolCode()
+            public string returnSchoolCode()
             {
                 return SchoolCode;
             }
 
             //Returns Raw Answers
-            string returnAnswers()
+            public string returnAnswers()
             {
                 return Answers;
+            }
+
+            //Returns the Error String
+            public string returnErrString()
+            {
+                string it = "";
+                if(NameFlaw||ClassFlaw||LevelFlaw||SchoolCodeFlaw||AnswersFlaw)
+                {
+                    it += "ERR";
+                }
+                else
+                {
+                    it += "OK ";
+                }
+
+                it += " " + returnName() + "\t\t" + returnClassCode() + " " + returnSchoolCode() + " " + returnAnswers();
+
+                return it;
             }
             #endregion Getters
 
             #region Setters
             //Updates Name
-            void updateName(string name)
+            public void updateName(string name)
             {
                 Name = name;
             }
 
             //Updates Class Code
-            void updateClassCode(string classcode)
+            public void updateClassCode(string classcode)
             {
                 ClassCode = classcode;
             }
 
             //Updates Class (Junior or Senior)
-            void updateClass(string classy)
+            public void updateClass(string classy)
             {
                 Classy = classy;
             }
 
             //Updates Level (AA or A)
-            void updateLevel(string level)
+            public void updateLevel(string level)
             {
                 Level=level;
             }
 
             //Updates School Code
-            void updateSchoolCode(string schoolcode)
+            public void updateSchoolCode(string schoolcode)
             {
                 SchoolCode = schoolcode;
             }
 
             //Updates School Name
-            void updateSchoolName(string schoolname)
+            public void updateSchoolName(string schoolname)
             {
                 SchoolName = schoolname;
             }
 
             //Update Answers
-            void updateAnswers(string answers)
+            public void updateAnswers(string answers)
             {
                 Answers = answers;
             }
 
             //Update Score
-            void updateScore(int score)
+            public void updateScore(double score)
             {
                 Score = score;
+            }
+
+            public void updateErr(bool name, bool classy, bool level, bool school, bool answers)
+            {
+                NameFlaw = name;
+                ClassFlaw = classy;
+                LevelFlaw = level;
+                SchoolCodeFlaw = school;
+                AnswersFlaw = answers;
             }
             #endregion Setters
 
         }
 
-        protected class schools
+        public class school
         {
+            string Number;
+            string Name;
+            List<contestant> SeniorContestant = new List<contestant>();
+            List<contestant> JuniorContestant = new List<contestant>();
 
+
+            //Constructor
+            #region Constructor/Destructor
+            public school(string number, string name){
+                Number = number;
+                Name = name;
+            }
+
+            //Destructor
+            ~school() { }
+
+            #endregion Constructor/Destructor
+
+            //Getters
+            #region Getters
+
+            public string GetNumber() { return Number; }
+            public string GetName() { return Name; }
+            public List<contestant> GetSeniorList() { return SeniorContestant; }
+            public List<contestant> GetJuniorList() { return JuniorContestant; }
+            public contestant GetJunStudent(int i) { return JuniorContestant[i]; }
+            public contestant GetSenStudent(int i) { return SeniorContestant[i]; }
+            public int jlen() { return JuniorContestant.Count; }
+            public int slen() { return SeniorContestant.Count; }
+
+            #endregion Getters
+
+            //Setters
+            #region Setters
+
+            public void UpdateNumber(string number) { Number = number; }
+            public void UpdateName(string name) { Name = name; }
+            public void AddSenior(contestant them) { SeniorContestant.Add(them); }
+            public void AddJunior(contestant them) { JuniorContestant.Add(them); }
+
+            #endregion Setters
         }
 
         string JuniorKey;     //Junior Key String
@@ -140,7 +213,10 @@ namespace MathContestGrading
         bool STFault = false;           //Senior Tie Fault
         List<contestant> Junior = new List<contestant>();   //List for junior data
         List<contestant> Senior = new List<contestant>();   //List for senior data
-        List<schools> School = new List<schools>();         //List for school data
+        List<school> School = new List<school>();         //List for school data
+
+        List<string> JunErrorList = new List<string>();      //List of all Juniors and saying ok or error.
+        List<string> SenErrorList = new List<string>();      //List of all Seniors and saying ok or error.
 
         public void parse()  //Goes through the files and puts the corresponding data in the list
         {   
@@ -150,24 +226,66 @@ namespace MathContestGrading
             List<string> JunFile = File.ReadAllLines(JuniorFileUpload.FileName).ToList();
             List<string> SchoolFile = File.ReadAllLines(SchoolFileUpload.FileName).ToList(); 
 
-            //May throw errors until this section is filled
-
+            //Does the key and tiebreakers then populates the student files
             validateKey('J', killWhiteSpace(JunFile[0]));
             validateTie('J', killWhiteSpace(JunFile[1]));
             for(int i=2;i<JunFile.Count();i++)
             {
-                validate(killWhiteSpace(JunFile[i]));
+                validate('J', killWhiteSpace(JunFile[i]));
             }
             validateKey('S', killWhiteSpace(SenFile[0]));
             validateTie('S', killWhiteSpace(SenFile[1]));
             for(int i=2;i<SenFile.Count();i++)
             {
-                validate(killWhiteSpace(SenFile[i]));
+                validate('S', killWhiteSpace(SenFile[i]));
+            }
+            
+            //Creates the error strings for juniors and seniors
+            if(JKFault)
+            {
+                JunErrorList.Add("ERR " + JuniorKey);
+            }
+            else
+            {
+                JunErrorList.Add("OK  " + JuniorKey);
+            }
+            if (SKFault)
+            {
+                SenErrorList.Add("ERR " + SeniorKey);
+            }
+            else
+            {
+                SenErrorList.Add("OK  " + SeniorKey);
             }
 
+            if (JTFault)
+            {
+                JunErrorList.Add("ERR " + JuniorTie);
+            }
+            else
+            {
+                JunErrorList.Add("OK  " + JuniorTie);
+            }
+            if (STFault)
+            {
+                SenErrorList.Add("ERR " + SeniorTie);
+            }
+            else
+            {
+                SenErrorList.Add("OK  " + SeniorTie);
+            }
+
+            for (int i=0;i<Junior.Count;i++)
+            {
+                JunErrorList.Add(Junior[i].returnErrString());
+            }
+            for (int i = 0; i < Senior.Count; i++)
+            {
+                SenErrorList.Add(Senior[i].returnErrString());
+            }
         }
 
-        public void validate(List<string> theLine)   //Called from parse, ensures data integrity
+        public void validate(char fileFrom, List<string> theLine)   //Called from parse, ensures data integrity
         {
             int i = 0;
             string Name = "";
@@ -181,7 +299,7 @@ namespace MathContestGrading
             bool schoolCodeFlaw = false;
             bool answersFlaw = false;
             
-            while(i>=theLine.Count() || theLine[i]!="41" || theLine[i]!="49" || theLine[i]!="51" || theLine[i]!="59" || theLine[i].Length!=6 || theLine[i].Length!=40)
+            while(i<theLine.Count() || theLine[i]!="41" || theLine[i]!="49" || theLine[i]!="51" || theLine[i]!="59" || theLine[i].Length!=40)
             {
                 Name = Name + " " + theLine[i];
                 i++;
@@ -214,14 +332,89 @@ namespace MathContestGrading
             }
             i++;
 
+            if(i >= theLine.Count() || theLine[i].Length != 40)
+            {
+                answersFlaw = true;
+            }
+            else
+            {
+                for(int j=0;j<40;j++)
+                {
+                    if(theLine[i][j] != '1' || theLine[i][j] != '2' || theLine[i][j] != '3' || theLine[i][j] != '4' || theLine[i][j] != '5' || theLine[i][j] != '*')
+                    {
+                        answersFlaw = true;
+                    }
+                }
+                if(!answersFlaw)
+                {
+                    ans = theLine[i];
+                }
+            }
 
-
+            if(classFlaw || levelFlaw)
+            {
+                if(fileFrom=='J')
+                {
+                    Junior.Add(new contestant(Name, CLCode, SCode, ans));
+                    Junior[Junior.Count()-1].updateErr(nameFlaw,classFlaw,levelFlaw, schoolCodeFlaw, answersFlaw);
+                }
+                else
+                {
+                    Senior.Add(new contestant(Name, CLCode, SCode, ans));
+                    Senior[Senior.Count() - 1].updateErr(nameFlaw, classFlaw, levelFlaw, schoolCodeFlaw, answersFlaw);
+                }
+            }
+            else
+            {
+                if(CLCode[0]=='4')
+                {
+                    Junior.Add(new contestant(Name, CLCode, SCode, ans));
+                    Junior[Junior.Count() - 1].updateErr(nameFlaw, classFlaw, levelFlaw, schoolCodeFlaw, answersFlaw);
+                }
+                else
+                {
+                    Senior.Add(new contestant(Name, CLCode, SCode, ans));
+                    Senior[Senior.Count() - 1].updateErr(nameFlaw, classFlaw, levelFlaw, schoolCodeFlaw, answersFlaw);
+                }
+            }
 
         }
 
         public void grade()  //Takes the scores from the students and calculates the grade
         {
+            for(int i=0;i<Junior.Count;i++)
+            {
+                Junior[i].updateScore(compare(Junior[i].returnAnswers(), JuniorKey, JuniorTie));
+            }
 
+            for (int i = 0; i < Senior.Count; i++)
+            {
+                Senior[i].updateScore(compare(Senior[i].returnAnswers(), SeniorKey, SeniorTie));
+            }
+        }
+
+        public double compare(string answers, string key, string tie)
+        {
+            double grade = 0;
+            for (int i = 0; i < 40;i++)
+            {
+                if(answers[i]==key[i])
+                {
+                    if(tie[i]=='1')
+                    {
+                        grade = grade + 1.01;
+                    }
+                    else if(tie[i]=='2')
+                    {
+                        grade = grade + 1.0001;
+                    }
+                    else
+                    {
+                        grade = grade + 1.0;
+                    }
+                }
+            }
+            return grade;
         }
 
         public List<string> killWhiteSpace(string line)
@@ -334,6 +527,11 @@ namespace MathContestGrading
                 string SavePath = AppPath + FilePath + Server.HtmlEncode(SchoolFileUpload.FileName);
                 SchoolFileUpload.SaveAs(SavePath);
             }
+        }
+
+        protected void DownloadFilesBtn_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
