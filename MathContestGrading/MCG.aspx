@@ -79,7 +79,7 @@ ul li {
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Math Contest Grading</title>
+    <title>Math Contest Grading Utility</title>
 </head>
 
 <body>
