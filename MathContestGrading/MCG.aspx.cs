@@ -225,26 +225,26 @@ namespace MathContestGrading
 
         public void parse()  //Goes through the files and puts the corresponding data in the list
         {
-            ShowPopUpMsg("Entered Parse");
+            //ShowPopUpMsg("Entered Parse");
             //Input the file by line and save into a list one for junior and senior
             List<string> SenFile = File.ReadAllLines(SeniorFile).ToList();
             List<string> JunFile = File.ReadAllLines(JuniorFile).ToList();
             List<string> SchoolFile = File.ReadAllLines(SchoolListFile).ToList();
-            ShowPopUpMsg("Read Shit");
+            //ShowPopUpMsg("Read Shit");
             //Does the key and tiebreakers then populates the student files
             validateKey('J', killWhiteSpace(JunFile[0]));
             validateTie('J', killWhiteSpace(JunFile[1]));
             for(int i=2;i<JunFile.Count();i++)
             {
                 validate('J', killWhiteSpace(JunFile[i]));
-                ShowPopUpMsg("Read Junior");
+                //ShowPopUpMsg("Read Junior");
             }
             validateKey('S', killWhiteSpace(SenFile[0]));
             validateTie('S', killWhiteSpace(SenFile[1]));
             for(int i=2;i<SenFile.Count();i++)
             {
                 validate('S', killWhiteSpace(SenFile[i]));
-                ShowPopUpMsg("Read Senior");
+                //ShowPopUpMsg("Read Senior");
             }
             
             //Creates the error strings for juniors and seniors
@@ -352,11 +352,8 @@ namespace MathContestGrading
                         answersFlaw = true;
                     }
                 }
-                if(!answersFlaw)
-                {
-                    ans = theLine[i];
-                }
             }
+            ans = theLine[i];
 
             if(classFlaw || levelFlaw)
             {
@@ -519,10 +516,8 @@ namespace MathContestGrading
             {
                 SString = SString + SenErrorList[i] + "\n";
             }
-            Console.Write(JString);
-            Console.ReadKey();
-            Console.Write(SString);
-            Console.ReadKey();
+            ShowPopUpMsg(JString);
+            ShowPopUpMsg(SString);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -563,8 +558,11 @@ namespace MathContestGrading
             //    int y = 5 / x;
             //}
             parse();
+            //ShowPopUpMsg("Finished Parse");
             //printErrBoxes();
-            //grade();
+            //ShowPopUpMsg("printErrBoxes");
+            grade();
+            ShowPopUpMsg("grade");
         }
 
         protected void DownloadFilesBtn_Click(object sender, EventArgs e)
