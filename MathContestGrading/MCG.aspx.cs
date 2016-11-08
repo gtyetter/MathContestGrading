@@ -204,6 +204,7 @@ namespace MathContestGrading
             #endregion Setters
         }
 
+        #region Variable_Defs
         string JuniorKey;     //Junior Key String
         string SeniorKey;     //Senior Key String
         string JuniorTie;     //Junior Tie String
@@ -222,6 +223,7 @@ namespace MathContestGrading
         string SeniorFile;     
         string JuniorFile;
         string SchoolListFile;
+        #endregion Variable_Defs
 
         public void parse()  //Goes through the files and puts the corresponding data in the list
         {
@@ -231,6 +233,9 @@ namespace MathContestGrading
             List<string> JunFile = File.ReadAllLines(JuniorFile).ToList();
             List<string> SchoolFile = File.ReadAllLines(SchoolListFile).ToList();
             //ShowPopUpMsg("Read Shit");
+
+            parseSchool(SchoolFile);        //Parses school list and creates the school elements
+
             //Does the key and tiebreakers then populates the student files
             validateKey('J', killWhiteSpace(JunFile[0]));
             validateTie('J', killWhiteSpace(JunFile[1]));
@@ -291,6 +296,8 @@ namespace MathContestGrading
                 SenErrorList.Add(Senior[i].returnErrString());
             }
         }
+
+        #region StudentValidation
 
         public void validate(char fileFrom, List<string> theLine)   //Called from parse, ensures data integrity
         {
@@ -384,66 +391,6 @@ namespace MathContestGrading
 
         }
 
-        public void grade()  //Takes the scores from the students and calculates the grade
-        {
-            for(int i=0;i<Junior.Count;i++)
-            {
-                Junior[i].updateScore(compare(Junior[i].returnAnswers(), JuniorKey, JuniorTie));
-            }
-
-            for (int i = 0; i < Senior.Count; i++)
-            {
-                Senior[i].updateScore(compare(Senior[i].returnAnswers(), SeniorKey, SeniorTie));
-            }
-        }
-
-        public double compare(string answers, string key, string tie)
-        {
-            double grade = 0;
-            for (int i = 0; i < 40;i++)
-            {
-                if(answers[i]==key[i])
-                {
-                    if(tie[i]=='1')
-                    {
-                        grade = grade + 1.01;
-                    }
-                    else if(tie[i]=='2')
-                    {
-                        grade = grade + 1.0001;
-                    }
-                    else
-                    {
-                        grade = grade + 1.0;
-                    }
-                }
-            }
-            return grade;
-        }
-
-        public List<string> killWhiteSpace(string line)
-        {
-            List<string> theLine = new List<string>();
-            string theWord="";
-            int counter = 0;
-            for(int i=0;i<line.Length;i++)
-            {
-                if (line[i] != ' ' && line[i] != '\t')
-                {
-                    theWord += line[i].ToString();
-                    counter++;
-                }
-                else if ((line[i] == ' ' || line[i] == '\t') && counter > 0)
-                {
-                    theLine.Add(theWord);
-                    theWord = "";
-                    counter = 0;
-                }
-            }
-            theLine.Add(theWord);
-            return theLine;
-        }
-
         public void validateKey(char level, List<string> theLine)
         {
             int item = theLine.Count()-1;
@@ -504,7 +451,92 @@ namespace MathContestGrading
             }
         }
 
-        public void printErrBoxes()
+        #endregion StudentValidation
+
+        #region SchoolValidation
+
+        public void parseSchool(List<string> schoolList)
+        {
+            List<string> tempString;
+            for(int i=0;i<schoolList.Count;i++)
+            {
+                string schoolCode = "";
+                string schoolName = "";
+                tempString = killWhiteSpace(schoolList[i]);
+                while(schoolCode.Length+tempString[0].Length<6)
+                {
+                    schoolCode = schoolCode + "0";
+                }
+            }
+        }
+
+        #endregion SchoolValidation
+
+        #region Grading
+
+        public void grade()  //Takes the scores from the students and calculates the grade
+        {
+            for(int i=0;i<Junior.Count;i++)
+            {
+                Junior[i].updateScore(compare(Junior[i].returnAnswers(), JuniorKey, JuniorTie));
+            }
+
+            for (int i = 0; i < Senior.Count; i++)
+            {
+                Senior[i].updateScore(compare(Senior[i].returnAnswers(), SeniorKey, SeniorTie));
+            }
+        }
+
+        public double compare(string answers, string key, string tie)       //Takes the answer string, key, and tie and returns the grade
+        {
+            double grade = 0;
+            for (int i = 0; i < 40;i++)
+            {
+                if(answers[i]==key[i])
+                {
+                    if(tie[i]=='1')
+                    {
+                        grade = grade + 1.01;
+                    }
+                    else if(tie[i]=='2')
+                    {
+                        grade = grade + 1.0001;
+                    }
+                    else
+                    {
+                        grade = grade + 1.0;
+                    }
+                }
+            }
+            return grade;
+        }
+
+        #endregion Grading
+
+        public List<string> killWhiteSpace(string line)     //Takes in a string, removes white space and returns a list of strings, use like .split()
+        {
+            List<string> theLine = new List<string>();
+            string theWord="";
+            int counter = 0;
+            for(int i=0;i<line.Length;i++)
+            {
+                if (line[i] != ' ' && line[i] != '\t')
+                {
+                    theWord += line[i].ToString();
+                    counter++;
+                }
+                else if ((line[i] == ' ' || line[i] == '\t') && counter > 0)
+                {
+                    theLine.Add(theWord);
+                    theWord = "";
+                    counter = 0;
+                }
+            }
+            theLine.Add(theWord);
+            return theLine;
+        }
+        
+        public void printErrBoxes()     //Pops up a message box with the errors, this is a bit buggy
         {
             string JString = "";
             string SString = "";
@@ -524,6 +556,8 @@ namespace MathContestGrading
         {
 
         }
+
+        #region ButtonClicks
 
         protected void SaveFileBtn_Click(object sender, EventArgs e)
         {
@@ -578,6 +612,8 @@ namespace MathContestGrading
             response.Flush();
             response.End();
         }
+
+        #endregion ButtonClicks
 
         private void ShowPopUpMsg(string msg)
         {
